@@ -28,9 +28,10 @@ export class News extends Component {
     pageSize: PropTypes.number,
     category: PropTypes.string,
   };
+  
   updatePage = async () => {
     this.props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=a16337e57cce476888365a18342db671&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = "/api/news";
     let data = await fetch(url);
     this.props.setProgress(30);
     let parsedData = await data.json();
