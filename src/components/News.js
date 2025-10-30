@@ -17,6 +17,7 @@ const News = (props) => {
 
   useEffect(() => {
     const updatePage = async () => {
+      document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
       props.setProgress(10);
       let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=a16337e57cce476888365a18342db671&page=1&pageSize=${props.pageSize}`;
       let data = await fetch(url);
@@ -26,7 +27,7 @@ const News = (props) => {
       setArticles(parsedData.articles);
       setLoading(false);
       setTotalResults(parsedData.totalResults);
-      document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
+      
       props.setProgress(100);
     };
     updatePage();
@@ -53,9 +54,12 @@ const News = (props) => {
   return (
     <>
       <LoadingBar color="#f11946" progress={props.progress} />
-      <h1 className="text-center">
+      <div style={{marginTop:'60px'}}>
+    <h1 className="text-center">
         NewsMonkey - Top {capitalizeFirstLetter(props.category)} Headlines
       </h1>
+      </div>
+      
       {loading && <Spinner />}
       <InfiniteScroll
         dataLength={articles.length} //This is important field to render the next data
